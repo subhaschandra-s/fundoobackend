@@ -1,11 +1,10 @@
-package com.bridgelabz.fundoonotes.serviceImpl;
+package com.bridgelabz.fundoonotes.serviceImplementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.fundoonotes.dto.ChangePasswordDTO;
 import com.bridgelabz.fundoonotes.dto.ForgotDTO;
 import com.bridgelabz.fundoonotes.dto.LoginDTO;
 import com.bridgelabz.fundoonotes.dto.UserDTO;
@@ -17,7 +16,7 @@ import com.bridgelabz.fundoonotes.utility.Jwt;
 import com.bridgelabz.fundoonotes.utility.Utility;
 
 @Service
-public class UserServiceImpl implements UserService 
+public class UserServiceImplementation implements UserService 
 {
 	@Autowired
 	private UserDAO userDAO;

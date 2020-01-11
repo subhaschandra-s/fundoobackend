@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.bridgelabz.fundoonotes.serviceImpl.MyUserDetailsService;
+import com.bridgelabz.fundoonotes.serviceImplementation.MyUserDetailsService;
 import com.bridgelabz.fundoonotes.utility.Jwt;
 
 @Component

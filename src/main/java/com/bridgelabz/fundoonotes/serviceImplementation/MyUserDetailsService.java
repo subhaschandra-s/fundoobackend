@@ -1,4 +1,4 @@
-package com.bridgelabz.fundoonotes.serviceImpl;
+package com.bridgelabz.fundoonotes.serviceImplementation;
 
 import java.util.ArrayList;
 

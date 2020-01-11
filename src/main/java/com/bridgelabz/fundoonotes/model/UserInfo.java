@@ -1,12 +1,14 @@
 package com.bridgelabz.fundoonotes.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,9 @@ public class UserInfo
 	
 	@NotNull
 	private String password;
+	
+	@OneToMany
+	private List<NotesInfo> notes;
 	
 	
 	@CreatedDate
