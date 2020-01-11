@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@Entity
+//@Entity
 @Table(name= "label")
 public class Label 
 {

@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoonotes.model.NotesInfo;
 
-@Repository
-public interface NoteRepository extends JpaRepository<NotesInfo,Long>
-{
-
-}
+//@Repository
+//public interface NoteRepository extends JpaRepository<NotesInfo,Long>
+//{
+//
+//}

@@ -81,13 +81,14 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public boolean getmail(ForgotDTO forgotDTO) 
+	public UserInfo getmail(ForgotDTO forgotDTO) 
 	{
 		
 		UserInfo u=userDAO.findOneByemailId(forgotDTO.getEmailId());
 		String jwt=res.getToken(u);
 		sendmail(forgotDTO.getEmailId(),jwt);
-		return true;
+		return u;
+		
 		
 		
 	}

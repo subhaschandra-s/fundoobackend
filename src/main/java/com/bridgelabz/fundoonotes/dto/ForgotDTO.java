@@ -1,16 +1,13 @@
 package com.bridgelabz.fundoonotes.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.Data;
+
+@Data
 public class ForgotDTO 
 {
+@NotNull(message = "Email should not be a null")
 private String emailId;
 
 }

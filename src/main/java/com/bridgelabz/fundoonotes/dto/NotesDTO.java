@@ -1,18 +1,11 @@
 package com.bridgelabz.fundoonotes.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 public class NotesDTO 
 {
+	
 	private String title;
 	private String takeanote;
 	private boolean ispinned;

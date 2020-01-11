@@ -1,27 +1,19 @@
 package com.bridgelabz.fundoonotes.dto;
 
-import javax.persistence.Column;
 
-import com.sun.istack.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+import lombok.Data;
+
+@Data
 public class LoginDTO 
 {
-	@NotNull
-	@Column(unique = true)
-	private String emailId;
 	
-	@NotNull
+	@NotNull(message = "Emailid should not be a null")
+	private String emailId;
+
+	@NotNull(message = "password should not be a null")
 	private String password;
 
 }

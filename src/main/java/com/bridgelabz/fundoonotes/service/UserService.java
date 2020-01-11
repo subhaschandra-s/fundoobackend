@@ -18,7 +18,7 @@ public String Login(LoginDTO dto);
 
 UserInfo getUser(String username);
 
-public boolean getmail(ForgotDTO  forgotDTO);
+public UserInfo getmail(ForgotDTO  forgotDTO);
 
 public String sendmail(String emailId,String jwt);
 
