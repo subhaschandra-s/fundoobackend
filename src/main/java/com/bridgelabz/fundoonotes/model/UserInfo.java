@@ -49,10 +49,20 @@ public class UserInfo
 	@NotNull
 	private String password;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "userinfo")
 	private List<NotesInfo> notes;
 	
+	@OneToMany(mappedBy = "userinfo")
+	private List<Label> labels;
 	
+	public List<NotesInfo> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<NotesInfo> notes) {
+		this.notes = notes;
+	}
+
 	@CreatedDate
 	private Date createdate;
 

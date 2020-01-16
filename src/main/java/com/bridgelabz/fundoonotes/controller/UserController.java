@@ -112,8 +112,8 @@ public class UserController
 		UserInfo user= service.activateuser(jwt);
 		
 		return user != null 
-				? ResponseEntity.status(HttpStatus.OK).body(new Response("verified", 200, user))
-				: ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, user));
+				? ResponseEntity.status(HttpStatus.OK).body(new Response("verified", 200, "is_verified=1"))
+				: ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, "Failed"));
 		
 	}
 	
@@ -141,7 +141,7 @@ public class UserController
 	@PutMapping("/modify")
 	private ResponseEntity<Response> Updatepassword(@RequestBody ChangePasswordDTO changedto,HttpServletRequest request)
 	{
-		String jwt=request.getHeader("header");
+		String jwt=request.getHeader("Authorization");
 		if(changedto.getPassword().equals(changedto.getConfirmpassword()))
 		{
 			String pass=(Utility.encoder(changedto.getPassword()));

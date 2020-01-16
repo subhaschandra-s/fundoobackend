@@ -112,7 +112,7 @@ public class UserServiceImplementation implements UserService
 	public UserInfo activateuser(String jwt) 
 	{
 		String emailId=jwtin.extractemailId(jwt);
-	System.out.println(emailId);
+	
 		if(userDAO.findOneByemailId(emailId)!=null)
 		{
 			

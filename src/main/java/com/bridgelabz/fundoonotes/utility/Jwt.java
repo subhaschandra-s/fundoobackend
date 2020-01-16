@@ -32,26 +32,29 @@ public class Jwt {
 
 	}
 
-	private boolean isTokenExpired(String token) {
+	private boolean isTokenExpired(String token) 
+	{
 		return extractExpiration(token).before(new Date());
 	}
 
-	public boolean validateToken(String token, UserDetails user) {
+	public boolean validateToken(String token, UserDetails user) 
+	{
 		final String emailId = extractemailId(token);
+		
 		return (emailId.equals(user.getUsername()) && !isTokenExpired(token));
 	}
+	
+	public boolean validatetoken(String token)
+	{
+		return !isTokenExpired(token);
+	}
 
-	public String extractemailId(String token) {
+	public String extractemailId(String token) 
+	{
 
-		if (token.startsWith("Bearer "))
-		{
+	return extractClaim(token, Claims::getSubject);
 
-			token = token.substring(7);
-			return extractClaim(token, Claims::getSubject);
-
-		}
-
-		return null;
+	
 	}
 
 	private Date extractExpiration(String token) {
