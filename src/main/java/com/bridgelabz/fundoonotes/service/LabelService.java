@@ -20,6 +20,6 @@ public interface LabelService
 
 	List<Label> getAllLabels(String jwt);
 
-	List<Label> getLabelsbyNote(String jwt);
+	List<Label> getLabelsbyNote(int id);
 
 }

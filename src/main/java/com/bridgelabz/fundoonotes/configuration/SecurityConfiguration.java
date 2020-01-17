@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.bridgelabz.fundoonotes.filter.Filter;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
 	@Autowired
 	private Filter filter;

@@ -72,10 +72,10 @@ public class LabelController
 	}
 	
 	@GetMapping("/getLabelsbyNote")
-	private ResponseEntity<Response> getLabelsbyNote(@RequestHeader("Authorization") String jwt)
+	private ResponseEntity<Response> getLabelsbyNote(@RequestParam("id") int id,@RequestHeader("Authorization") String jwt)
 	{
-		if(labelservice.getLabelsbyNote(jwt) != null)
-		return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getLabelsbyNote(jwt)));
+		if(labelservice.getLabelsbyNote(id) != null)
+		return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getLabelsbyNote(id)));
 		else
 		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));
 	}

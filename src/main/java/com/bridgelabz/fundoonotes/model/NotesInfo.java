@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -60,6 +61,20 @@ public class NotesInfo
 	@ManyToMany
 	private List<Label> label;
 	
+	
+	@OneToMany(mappedBy = "notes")
+	private List<Collaborator> collaborator;
+	
+	public List<Collaborator> getCollaborator() {
+		return collaborator;
+	}
+
+
+	public void setCollaborator(List<Collaborator> collaborator) {
+		this.collaborator = collaborator;
+	}
+
+
 	@JsonIgnore
 	@OneToOne
 	private UserInfo userinfo;
@@ -214,13 +229,13 @@ public class NotesInfo
 	}
 
 
-	@Override
-	public String toString() {
-		return "NotesInfo [id=" + id + ", title=" + title + ", takeanote=" + takeanote + ", isPinned=" + isPinned
-				+ ", isArchived=" + isArchived + ", isDeleted=" + isDeleted + ", reminderstatus=" + reminderstatus
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", label=" + label + ", userinfo="
-				+ userinfo + ", color=" + color + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "NotesInfo [id=" + id + ", title=" + title + ", takeanote=" + takeanote + ", isPinned=" + isPinned
+//				+ ", isArchived=" + isArchived + ", isDeleted=" + isDeleted + ", reminderstatus=" + reminderstatus
+//				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", label=" + label + ", userinfo="
+//				+ userinfo + ", color=" + color + "]";
+//	}
 
 	
 }

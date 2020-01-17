@@ -93,18 +93,11 @@ public class LabelImplementation implements LabelService
 	}
 
 	@Override
-	public List<Label> getLabelsbyNote(String jwt)
+	public List<Label> getLabelsbyNote(int id)
 	{
-		UserInfo user=labelrepository.findOneByemailId(jwtin.extractemailId(jwt));
-		if(jwtin.validatetoken(jwt) && user!=null)
-		{
-			List<NotesInfo> note=labelrepository.getNoteId(user.getId());
-			List<Label> labels=labelrepository.getLabelsbyNote(note.);
-			return labels;	
-		}
-		
-		return null;
-		
+		NotesInfo note=labelrepository.findByNote(id);
+		List<Label> labels=note.getLabel();
+		return labels;
 	}
 	
 	
