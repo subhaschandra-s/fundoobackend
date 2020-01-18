@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.bridgelabz.fundoonotes.dto.ChangePasswordDTO;
+import com.bridgelabz.fundoonotes.dto.resetPasswordDTO;
 import com.bridgelabz.fundoonotes.dto.ForgotDTO;
 import com.bridgelabz.fundoonotes.dto.LoginDTO;
 import com.bridgelabz.fundoonotes.dto.UserDTO;
@@ -139,7 +139,7 @@ public class UserController
 	
 	
 	@PutMapping("/modify")
-	private ResponseEntity<Response> Updatepassword(@RequestBody ChangePasswordDTO changedto,HttpServletRequest request)
+	private ResponseEntity<Response> Updatepassword(@RequestBody resetPasswordDTO changedto,HttpServletRequest request)
 	{
 		String jwt=request.getHeader("Authorization");
 		if(changedto.getPassword().equals(changedto.getConfirmpassword()))
@@ -155,11 +155,8 @@ public class UserController
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("verified", 200, "updated successfully"));
 			else
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, "not updated"));
-					
 			}
-			
 		}
-		
 		return ResponseEntity.status(HttpStatus.OK).body(new Response("Failed", 200, "Password Incorrect"));
 	}
 }

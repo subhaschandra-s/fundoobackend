@@ -5,8 +5,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.fundoonotes.configuration.RabbitMqSender;
 import com.bridgelabz.fundoonotes.dto.ForgotDTO;
 import com.bridgelabz.fundoonotes.dto.LoginDTO;
+import com.bridgelabz.fundoonotes.dto.MailObject;
 import com.bridgelabz.fundoonotes.dto.UserDTO;
 import com.bridgelabz.fundoonotes.model.UserInfo;
 import com.bridgelabz.fundoonotes.repository.UserDAO;
@@ -27,10 +29,15 @@ public class UserServiceImplementation implements UserService
 
 	@Autowired
 	private Response res;
-	
+
 	@Autowired
 	private Jwt jwtin;
 	
+	@Autowired
+	private RabbitMqSender rabbitmqsender; 
+	
+	@Autowired
+	private NotesServiceImplementation impl;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -49,25 +56,27 @@ public class UserServiceImplementation implements UserService
 		userDAO.save(us);
 		String jwt=res.getToken(us);
 		sendmail(userdto.getEmailId(),jwt);
-		 
-		
 		return us;
 	}
 
 	@Override
 	public String Login(LoginDTO dto)
 	{
-		
 		UserInfo u=userDAO.findOneByemailId(dto.getEmailId());
 		
-
+		MailObject mailobj=new MailObject();
+		mailobj.setEmail(dto.getEmailId());
+		mailobj.setResponse(res.getName());
+		mailobj.setObject("hello");
+		rabbitmqsender.send(mailobj);
+		
 		if(u!=null)
 		{
 			if(u.getEmailId().equals(dto.getEmailId()) && Utility.passwordMatcher(dto.getPassword(), u.getPassword()))
 			{				
-				String s= res.getToken(u);
-			
-				return s;
+				String jwt= res.getToken(u);
+			     impl.getRedisId(jwt);
+				return jwt;
 			}
 		}
 		return null;
@@ -82,14 +91,10 @@ public class UserServiceImplementation implements UserService
 	@Override
 	public UserInfo getmail(ForgotDTO forgotDTO) 
 	{
-		
 		UserInfo u=userDAO.findOneByemailId(forgotDTO.getEmailId());
 		String jwt=res.getToken(u);
 		sendmail(forgotDTO.getEmailId(),jwt);
-		return u;
-		
-		
-		
+		return u;	
 	}
 
 	@Override
@@ -105,8 +110,9 @@ public class UserServiceImplementation implements UserService
 		
 		return "email sent to your mail";
 		
-		
 	}
+	
+	
 
 	@Override
 	public UserInfo activateuser(String jwt) 

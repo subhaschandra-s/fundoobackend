@@ -1,10 +1,11 @@
 package com.bridgelabz.fundoonotes.serviceImplementation;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
@@ -15,6 +16,9 @@ import com.bridgelabz.fundoonotes.repository.NoteRepository;
 import com.bridgelabz.fundoonotes.service.NotesService;
 import com.bridgelabz.fundoonotes.utility.Jwt;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NotesServiceImplementation implements NotesService {
 	@Autowired
@@ -22,6 +26,9 @@ public class NotesServiceImplementation implements NotesService {
 
 	@Autowired
 	private NoteRepository noterepository;
+	
+	@Autowired
+	private RedisTemplate<String, Object>redis;
 
 	@Override
 	public boolean saveanote(NotesDTO notesDTO, String jwt1) throws Exception {
@@ -63,15 +70,15 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public boolean deletenote(int id) 
 	{
-		int l =noterepository.delete(id); 
-	
-		return true;
+		noterepository.delete(id); 
+         return true;
 	}
 
 	@Override
 	public boolean update(NotesDTO notesDTO, String jwt2) throws Exception 
 	{
-		UserInfo user1=noterepository.findOneByemailId(jwt.extractemailId(jwt2));
+		String userid=getRedisId(jwt2);
+		UserInfo user1=noterepository.findOneByemailId(userid);	
 		if(jwt.validatetoken(jwt2) && user1!=null )
 		{
 			List<Label> labels=getLabels(notesDTO.getLabel(),jwt2);
@@ -93,6 +100,19 @@ public class NotesServiceImplementation implements NotesService {
 		throw new Exception("token is not valid");
 	}
 
+	public String getRedisId(String token)
+	{
+		if(redis.opsForValue().get(token)==null)
+		{
+			String idForRedis=jwt.extractemailId(token);
+			log.info("idforRedis is "+idForRedis);
+			redis.opsForValue().set(token, idForRedis, 3 * 60, TimeUnit.SECONDS);	
+		}
+		String userid=(String) redis.opsForValue().get(token);
+		return userid;
+		
+	}
+	
 
 	@Override
 	public NotesInfo getnote(int id) 
