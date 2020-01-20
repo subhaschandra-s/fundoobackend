@@ -54,7 +54,7 @@ public class UserInfo
 	
 	@OneToMany(mappedBy = "userinfo")
 	private List<Label> labels;
-	
+		
 	public List<NotesInfo> getNotes() {
 		return notes;
 	}
