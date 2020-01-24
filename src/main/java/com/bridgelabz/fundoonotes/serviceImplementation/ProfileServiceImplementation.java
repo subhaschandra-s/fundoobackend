@@ -32,14 +32,13 @@ public class ProfileServiceImplementation implements ProfileService
 		UserInfo user=profilerepository.findOneByemailId(jwtin.extractemailId(jwt));
 		if(user!=null)
 		{
-			profilerepository.insert(user.getId());
+			profilerepository.insert(multipartfile.getOriginalFilename(),user.getId());
 			s3bucket.uploadprofile(multipartfile);
 		}
 		return false;
 	}
-
 	
-
+	@Override
 	public void updateprofile(MultipartFile file, String jwt) throws Exception
 	{
 		UserInfo user = profilerepository.findOneByemailId(jwtin.extractemailId(jwt));

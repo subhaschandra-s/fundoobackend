@@ -24,7 +24,7 @@ public class UserServiceImplementation implements UserService
 	private UserDAO userDAO;
 		
 	@Autowired
-	private UserInfo us;
+	private UserInfo user;
 	
 
 	@Autowired
@@ -44,19 +44,19 @@ public class UserServiceImplementation implements UserService
 
 	public UserInfo Register(UserDTO userdto) 
 	{
-		us.setFirstname(userdto.getFirstname());
+		user.setFirstname(userdto.getFirstname());
 		
-		us.setLastname(userdto.getLastname());
-		us.setEmailId(userdto.getEmailId());
-		us.setMobileNo(userdto.getMobileNo());
-		us.setPassword(userdto.getPassword());
-		us.setPassword(Utility.encoder(us.getPassword()));
-		us.setCreatedate();
+		user.setLastname(userdto.getLastname());
+		user.setEmailId(userdto.getEmailId());
+		user.setMobileNo(userdto.getMobileNo());
+		user.setPassword(userdto.getPassword());
+		user.setPassword(Utility.encoder(user.getPassword()));
+		user.setCreatedate();
 		
-		userDAO.save(us);
-		String jwt=res.getToken(us);
+		userDAO.save(user);
+		String jwt=res.getToken(user);
 		sendmail(userdto.getEmailId(),jwt);
-		return us;
+		return user;
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class UserServiceImplementation implements UserService
 			
 			userDAO.setverifiedEmail(emailId);
 		}
-		return us;
+		return user;
 					
 	}
 

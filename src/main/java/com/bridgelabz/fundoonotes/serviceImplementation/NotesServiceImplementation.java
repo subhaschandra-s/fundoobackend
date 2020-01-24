@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
@@ -18,9 +19,10 @@ import com.bridgelabz.fundoonotes.utility.Jwt;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 @Service
 public class NotesServiceImplementation implements NotesService {
+	
 	@Autowired
 	private Jwt jwt;
 
@@ -31,7 +33,8 @@ public class NotesServiceImplementation implements NotesService {
 	private RedisTemplate<String, Object>redis;
 
 	@Override
-	public boolean saveanote(NotesDTO notesDTO, String jwt1) throws Exception {
+	public boolean saveanote(NotesDTO notesDTO, String jwt1) throws Exception 
+	{
 		UserInfo user = noterepository.findOneByemailId(jwt.extractemailId(jwt1));
 		if (jwt.validatetoken(jwt1) && user != null) 
 		{
@@ -77,6 +80,7 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public boolean update(NotesDTO notesDTO, String jwt2) throws Exception 
 	{
+		System.out.println(jwt2);
 		String userid=getRedisId(jwt2);
 		UserInfo user1=noterepository.findOneByemailId(userid);	
 		if(jwt.validatetoken(jwt2) && user1!=null )
@@ -105,7 +109,7 @@ public class NotesServiceImplementation implements NotesService {
 		if(redis.opsForValue().get(token)==null)
 		{
 			String idForRedis=jwt.extractemailId(token);
-			log.info("idforRedis is "+idForRedis);
+			//log.info("idforRedis is "+idForRedis);
 			redis.opsForValue().set(token, idForRedis, 3 * 60, TimeUnit.SECONDS);	
 		}
 		String userid=(String) redis.opsForValue().get(token);
@@ -124,9 +128,10 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public List<NotesInfo> getAllnotes(String jwt1)
 	{
+		System.out.println("inside 2");
 		UserInfo user=noterepository.findOneByemailId(jwt.extractemailId(jwt1));
 		List<NotesInfo> notes=noterepository.getAllnotes(user.getId());
-		
+		System.out.println(notes);
 		return notes;
 	}
 

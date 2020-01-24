@@ -229,13 +229,13 @@ public class NotesInfo
 	}
 
 
-//	@Override
-//	public String toString() {
-//		return "NotesInfo [id=" + id + ", title=" + title + ", takeanote=" + takeanote + ", isPinned=" + isPinned
-//				+ ", isArchived=" + isArchived + ", isDeleted=" + isDeleted + ", reminderstatus=" + reminderstatus
-//				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", label=" + label + ", userinfo="
-//				+ userinfo + ", color=" + color + "]";
-//	}
+	@Override
+	public String toString() {
+		return "NotesInfo [id=" + id + ", title=" + title + ", takeanote=" + takeanote + ", isPinned=" + isPinned
+				+ ", isArchived=" + isArchived + ", isDeleted=" + isDeleted + ", reminderstatus=" + reminderstatus
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", label=" + label + ", userinfo="
+				+ userinfo + ", color=" + color + "]";
+	}
 
 	
 }

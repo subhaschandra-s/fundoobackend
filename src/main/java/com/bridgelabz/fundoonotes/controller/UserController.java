@@ -43,11 +43,6 @@ public class UserController
 	@Autowired
 	private UserDAO repo;
 
-	@GetMapping("/hi")
-	public void getHi() 
-	{
-		
-	}
 
 	
 	@PostMapping("/register")
@@ -65,7 +60,7 @@ public class UserController
 			user.setPassword("*****");
 			 return user!=null
 					? ResponseEntity.status(HttpStatus.CREATED)
-							.body(new Response("registration successfull", 200, user))
+							.body(new Response("registration successfull", 200, user.getId()))
 					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
 							.body(new Response("user already exist", 400, userdto));
 		}
@@ -130,7 +125,7 @@ public class UserController
 			UserInfo user=service.getmail(forgotdto);
         	user.setPassword("*****");
 			return user!= null
-					? ResponseEntity.status(HttpStatus.OK).body(new Response("Successfull", 200, user))
+					? ResponseEntity.status(HttpStatus.OK).body(new Response("Successfull", 200, user.getId()))
 							: ResponseEntity.status(HttpStatus.OK).body(new Response("Failed", 400, forgotdto));
 		}
 		
@@ -152,7 +147,7 @@ public class UserController
 			int n1= repo.setpassword(emailId, pass);
 			
 		    if(n1!=0)
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("verified", 200, "updated successfully"));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("updated", 200, "updated successfully"));
 			else
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, "not updated"));
 			}
