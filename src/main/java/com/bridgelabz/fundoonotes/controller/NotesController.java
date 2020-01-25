@@ -58,21 +58,37 @@ public class NotesController {
 
 	}
 
-	
-	
-	
-	@GetMapping("/getAllnotes")
-	private ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
+
+//	@GetMapping("/getAllnotes")
+//	private ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
+//	{
+//		System.out.println(notesService);
+//		if (notesService.getAllnotes(jwt) != null) 
+//		{
+//			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
+//		} 
+//		else 
+//		{
+//			return ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
+//		}
+//	}
+//	
+	@GetMapping("/notes")
+	private void getAllnotes(@RequestHeader("Authorization") String jwt) 
 	{
-		if (notesService.getAllnotes(jwt) != null) {
-			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
-		} else {
-			return ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
-		}
+		System.out.println("get notes ");
+		if (notesService.getAllnotes(jwt) != null) 
+			{
+				 ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
+			} 
+			else 
+			{
+				 ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
+			}
 	}
 
 	@GetMapping("/getAllPinned")
-	private ResponseEntity<Response>getAllPinnednotes(@RequestHeader("Authorization") String jwt)
+	private ResponseEntity<Response>getAllPinnedNotes(@RequestHeader("Authorization") String jwt)
 	{
 		System.out.println(notesService);
 		if(notesService.getAllPinned(jwt)!=null)

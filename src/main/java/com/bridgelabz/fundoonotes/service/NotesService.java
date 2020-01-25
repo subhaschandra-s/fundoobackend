@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
 import com.bridgelabz.fundoonotes.model.NotesInfo;
 
-@Service
 public interface NotesService 
 {
 	

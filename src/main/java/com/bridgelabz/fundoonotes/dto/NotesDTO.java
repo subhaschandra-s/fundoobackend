@@ -2,6 +2,9 @@ package com.bridgelabz.fundoonotes.dto;
 
 import java.util.List;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName = "elasticsearch",type = "notedto")
 public class NotesDTO 
 {
 	private int id;
