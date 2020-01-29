@@ -24,6 +24,7 @@ public class NotesController {
 	
 	@Autowired
 	public NotesService notesService;
+
 	
 	@PostMapping("/save")
 	private ResponseEntity<Response> newnote(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
@@ -58,34 +59,33 @@ public class NotesController {
 
 	}
 
+	
+	@GetMapping("/getnotes")
+	private ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader("Authorization") String jwt) {
+		
+		System.out.println(id);
+		NotesInfo notes = notesService.getnote(id);
 
-//	@GetMapping("/getAllnotes")
-//	private ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
-//	{
-//		System.out.println(notesService);
-//		if (notesService.getAllnotes(jwt) != null) 
-//		{
-//			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
-//		} 
-//		else 
-//		{
-//			return ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
-//		}
-//	}
-//	
-	@GetMapping("/notes")
-	private void getAllnotes(@RequestHeader("Authorization") String jwt) 
-	{
-		System.out.println("get notes ");
-		if (notesService.getAllnotes(jwt) != null) 
-			{
-				 ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
-			} 
-			else 
-			{
-				 ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
-			}
+		if (notes != null)
+			return ResponseEntity.ok().body(new Response("successfull", 200, notes));
+		else
+			return ResponseEntity.ok().body(new Response("problems occured", 400, "Failed"));
 	}
+	
+	@GetMapping("/getAllnotes")
+	private ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
+	{
+		System.out.println(notesService);
+		if (notesService.getAllnotes(jwt) != null) 
+		{
+			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
+		} 
+		else 
+		{
+			return ResponseEntity.ok().body(new Response("Problems occur", 400, "failed"));
+		}
+	}
+	
 
 	@GetMapping("/getAllPinned")
 	private ResponseEntity<Response>getAllPinnedNotes(@RequestHeader("Authorization") String jwt)
@@ -106,22 +106,6 @@ public class NotesController {
 			return ResponseEntity.ok().body(new Response("Problems in notes",400,"Failed"));
 	}
 	
-	@GetMapping("/getnotes")
-	private ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader("Authorization") String jwt) {
-		
-		System.out.println(id);
-		NotesInfo notes = notesService.getnote(id);
-
-		if (notes != null)
-			return ResponseEntity.ok().body(new Response("successfull", 200, notes));
-		else
-			return ResponseEntity.ok().body(new Response("problems occured", 400, "Failed"));
-	}
 	
-	@GetMapping("/get")
-	public String get() {
-		System.out.println("cascvsacv");
-		return "hi";
-	}
-
+	
 }

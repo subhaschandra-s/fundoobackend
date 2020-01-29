@@ -65,7 +65,6 @@ public class LabelController
 	@GetMapping("/getAllLabels")
 	private ResponseEntity<Response>getAllLabels(@RequestHeader("Authorization") String jwt)
 	{
-		System.out.println(labelservice);
 		if(labelservice.getAllLabels(jwt) != null)
 		return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getAllLabels(jwt)));
 		else
