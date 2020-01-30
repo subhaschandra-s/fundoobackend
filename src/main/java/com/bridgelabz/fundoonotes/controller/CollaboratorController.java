@@ -23,32 +23,32 @@ public class CollaboratorController
 	private CollaboratorService collaboratorService;
 	
 	@PostMapping("/addcollaborator")
-	private ResponseEntity<Response> addCollaborator(@RequestBody CollaboratorDTO collaboratorDTO,@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response> addCollaborator(@RequestBody CollaboratorDTO collaboratorDTO,@RequestHeader("Authorization") String jwt)
 	{
 
 		if(collaboratorService.addCollaborator(collaboratorDTO, jwt) !=null)
-		return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorDTO));
+			return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorDTO));
 		else
-		return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));
 		
 	}
 
 	@DeleteMapping("/deletecollaborator")
-	private ResponseEntity<Response>deleteCollaborator(@RequestParam("id")int id,@RequestHeader("Authorization")String jwt)
+	public ResponseEntity<Response>deleteCollaborator(@RequestParam("id")int id,@RequestHeader("Authorization")String jwt)
 	{
 		if(collaboratorService.deleteCollaborator(id,jwt))
-		return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorService.deleteCollaborator(id,jwt)));
+			return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorService.deleteCollaborator(id,jwt)));
 		else
-		return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));
     }
 	
 	@GetMapping("/getcollaborator")
-	private ResponseEntity<Response>getCollaborator(@RequestParam("id")int id,@RequestHeader("Authorization")String jwt)
+	public ResponseEntity<Response>getCollaborator(@RequestParam("id")int id,@RequestHeader("Authorization")String jwt)
 	{
 		if(collaboratorService.getcollaborator(id,jwt) != null)
-		return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorService.getcollaborator(id,jwt)));
+			return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorService.getcollaborator(id,jwt)));
 		else
-		return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));	
+			return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));	
 		
 	}
 	

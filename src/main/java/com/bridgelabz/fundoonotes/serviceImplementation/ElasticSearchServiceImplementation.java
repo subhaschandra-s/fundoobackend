@@ -97,6 +97,7 @@ public class ElasticSearchServiceImplementation implements ElasticSearchService
 		else
 			return null;
 	}
+	
 
 	private List<NotesInfo> getResult(SearchResponse searchresponse) 
 	{

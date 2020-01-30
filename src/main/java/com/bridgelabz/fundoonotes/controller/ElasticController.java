@@ -1,7 +1,5 @@
 package com.bridgelabz.fundoonotes.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
-import com.bridgelabz.fundoonotes.model.NotesInfo;
 import com.bridgelabz.fundoonotes.response.Response;
 import com.bridgelabz.fundoonotes.service.ElasticSearchService;
 
@@ -28,7 +25,7 @@ public class ElasticController
 	public void getelastic(@RequestBody NotesDTO dto) throws Exception
 	{
 		if(service.createnote(dto)!=null)
-		System.out.println("successfull");
+			System.out.println("successfull");
 		else
 			System.out.println("failed");
 	}

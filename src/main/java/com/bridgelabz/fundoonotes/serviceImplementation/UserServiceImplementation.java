@@ -1,4 +1,4 @@
-package com.bridgelabz.fundoonotes.serviceImplementation;
+ package com.bridgelabz.fundoonotes.serviceImplementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -66,7 +66,7 @@ public class UserServiceImplementation implements UserService
 		
 		MailObject mailobj=new MailObject();
 		mailobj.setEmail(dto.getEmailId());
-		mailobj.setResponse(res.getName());
+		mailobj.setResponse(res.getToken(u));
 		mailobj.setObject("hello");
 		rabbitmqsender.send(mailobj);
 		

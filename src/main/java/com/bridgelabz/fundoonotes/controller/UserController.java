@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.bridgelabz.fundoonotes.dto.resetPasswordDTO;
+
 import com.bridgelabz.fundoonotes.dto.ForgotDTO;
 import com.bridgelabz.fundoonotes.dto.LoginDTO;
 import com.bridgelabz.fundoonotes.dto.UserDTO;
+import com.bridgelabz.fundoonotes.dto.resetPasswordDTO;
 import com.bridgelabz.fundoonotes.model.UserInfo;
 import com.bridgelabz.fundoonotes.repository.UserDAO;
 import com.bridgelabz.fundoonotes.response.Response;
@@ -35,8 +36,6 @@ public class UserController
 	@Autowired
 	private Jwt jn;
 	
-	
-	
 	@Autowired
 	private UserService service;
 	
@@ -46,7 +45,7 @@ public class UserController
 
 	
 	@PostMapping("/register")
-	private ResponseEntity<Response> register(@Valid @RequestBody UserDTO userdto,BindingResult bindingResult )
+	public ResponseEntity<Response> register(@Valid @RequestBody UserDTO userdto,BindingResult bindingResult )
 	{
 		if (bindingResult.hasErrors()) 
 		{
@@ -57,12 +56,8 @@ public class UserController
 		{
 	     	
 		    UserInfo user =service.Register(userdto);
-			user.setPassword("*****");
-			 return user!=null
-					? ResponseEntity.status(HttpStatus.CREATED)
-							.body(new Response("registration successfull", 200, user.getId()))
-					: ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
-							.body(new Response("user already exist", 400, userdto));
+			 return ResponseEntity.status(HttpStatus.CREATED)
+							.body(new Response("registration successfull", 200, user.getId()));
 		}
 		return null;
 		
@@ -70,7 +65,7 @@ public class UserController
 	
 	
 	@PostMapping("/login")
-	private ResponseEntity<Response> login(@Valid @RequestBody LoginDTO dto, BindingResult bindingResult)
+	public ResponseEntity<Response> login(@Valid @RequestBody LoginDTO dto, BindingResult bindingResult)
 	{
 		if (bindingResult.hasErrors()) 
 		{
@@ -101,8 +96,8 @@ public class UserController
 	
 	
 	
-	@RequestMapping("/verification")
-	private ResponseEntity<Response> Userverification(@RequestParam String jwt,HttpServletRequest req)
+	@GetMapping("/verification")
+	public ResponseEntity<Response> userverification(@RequestParam String jwt,HttpServletRequest req)
 	{
 		UserInfo user= service.activateuser(jwt);
 		
@@ -113,7 +108,7 @@ public class UserController
 	}
 	
 	@PostMapping("/forgot")
-	private ResponseEntity<Response> forgot(@Valid @RequestBody ForgotDTO forgotdto,BindingResult bindingResult)
+	public ResponseEntity<Response> forgot(@Valid @RequestBody ForgotDTO forgotdto,BindingResult bindingResult)
 	{
 		if (bindingResult.hasErrors()) 
 		{
@@ -124,9 +119,7 @@ public class UserController
 		{
 			UserInfo user=service.getmail(forgotdto);
         	user.setPassword("*****");
-			return user!= null
-					? ResponseEntity.status(HttpStatus.OK).body(new Response("Successfull", 200, user.getId()))
-							: ResponseEntity.status(HttpStatus.OK).body(new Response("Failed", 400, forgotdto));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Successfull", 200, user.getId()));
 		}
 		
 		
@@ -134,7 +127,7 @@ public class UserController
 	
 	
 	@PutMapping("/modify")
-	private ResponseEntity<Response> Updatepassword(@RequestBody resetPasswordDTO changedto,HttpServletRequest request)
+	public ResponseEntity<Response> updatepassword(@RequestBody resetPasswordDTO changedto,HttpServletRequest request)
 	{
 		String jwt=request.getHeader("Authorization");
 		if(changedto.getPassword().equals(changedto.getConfirmpassword()))
@@ -147,11 +140,11 @@ public class UserController
 			int n1= repo.setpassword(emailId, pass);
 			
 		    if(n1!=0)
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("updated", 200, "updated successfully"));
+		    	return ResponseEntity.status(HttpStatus.OK).body(new Response("updated", 200, "updated successfully"));
 			else
-			return ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, "not updated"));
+				return ResponseEntity.status(HttpStatus.OK).body(new Response("not verified", 400, "not updated"));
 			}
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(new Response("Failed", 200, "Password Incorrect"));
+			return ResponseEntity.status(HttpStatus.OK).body(new Response("Failed", 200, "Password Incorrect"));
 	}
 }

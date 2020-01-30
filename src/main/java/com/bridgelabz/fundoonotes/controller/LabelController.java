@@ -25,59 +25,59 @@ public class LabelController
 	private LabelService labelservice;
 	
 	@PostMapping("/savelabel")
-	private ResponseEntity<Response>savelabel(@RequestBody LabelDTO ldto,@RequestHeader("Authorization")String jwt) throws Exception
+	public ResponseEntity<Response>savelabel(@RequestBody LabelDTO ldto,@RequestHeader("Authorization")String jwt) throws Exception
 	{
 		if(labelservice.savelabel(ldto, jwt))
 			return ResponseEntity.ok().body(new Response("Successfull",200,ldto));
 		else
-		return ResponseEntity.ok().body(new Response("problem in label",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("problem in label",400,"Error"));
 		
 	}
 	
 	@PutMapping("/updatelabel")
-	private ResponseEntity<Response>updatlabel(@RequestBody LabelDTO ldto,@RequestHeader("Authorization")String jwt) throws Exception
+	public ResponseEntity<Response>updatlabel(@RequestBody LabelDTO ldto,@RequestHeader("Authorization")String jwt) throws Exception
 	{
 		if(labelservice.updatelabel(ldto,jwt))
 			return ResponseEntity.ok().body(new Response("updated label",200,ldto));
 		else
-		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("Problem occured",400,"Failss"));
 	}
 	
 	@DeleteMapping("/deletelabel")
-	private ResponseEntity<Response>deletelabel(@RequestParam("labelid")int lid,@RequestHeader("Authorization")String jwt)
+	public ResponseEntity<Response>deletelabel(@RequestParam("labelid")int lid,@RequestHeader("Authorization")String jwt)
 	{
 		if(labelservice.deletelabel(lid,jwt))
 			return ResponseEntity.ok().body(new Response("deleted label",200,"Done"));
 		else
-		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("Problem occuredd",400,"Failedd"));
 	}
 	
 	@GetMapping("/getlabel")
-	private ResponseEntity<Response>getlabel(@RequestParam("labelid")int lid,@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response>getlabel(@RequestParam("labelid")int lid,@RequestHeader("Authorization") String jwt)
 	{
 		Label label=labelservice.getlabel(lid,jwt);
 		if(label!=null)
-		return ResponseEntity.ok().body(new Response("got label by id",200,label));
+			return ResponseEntity.ok().body(new Response("got label by id",200,label));
 		else
-		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));	
+			return ResponseEntity.ok().body(new Response("Problem in labels",400,"Faileddd"));	
 	}
 	
 	@GetMapping("/getAllLabels")
-	private ResponseEntity<Response>getAllLabels(@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response>getAllLabels(@RequestHeader("Authorization") String jwt)
 	{
 		if(labelservice.getAllLabels(jwt) != null)
-		return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getAllLabels(jwt)));
+			return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getAllLabels(jwt)));
 		else
-		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));	
+			return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));	
 	}
 	
 	@GetMapping("/getLabelsbyNote")
-	private ResponseEntity<Response> getLabelsbyNote(@RequestParam("id") int id,@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response> getLabelsbyNote(@RequestParam("id") int id,@RequestHeader("Authorization") String jwt)
 	{
 		if(labelservice.getLabelsbyNote(id) != null)
-		return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getLabelsbyNote(id)));
+			return ResponseEntity.ok().body(new Response("All labels availble",200,labelservice.getLabelsbyNote(id)));
 		else
-		return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("Problem in label",400,"Failed"));
 	}
 
 }

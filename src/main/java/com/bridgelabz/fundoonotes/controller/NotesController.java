@@ -23,11 +23,11 @@ import com.bridgelabz.fundoonotes.service.NotesService;
 public class NotesController {
 	
 	@Autowired
-	public NotesService notesService;
+	private NotesService notesService;
 
 	
 	@PostMapping("/save")
-	private ResponseEntity<Response> newnote(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response> newnote(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
 			throws Exception {
 
 		if (notesService.saveanote(notesDTO, jwt))
@@ -38,8 +38,9 @@ public class NotesController {
 	}
 
 	@DeleteMapping("/delete")
-	private ResponseEntity<Response> delete(@RequestParam("noteid") int id,
-			@RequestHeader("Authorization") String jwt) {
+	public ResponseEntity<Response> delete(@RequestParam("noteid") int id,
+			@RequestHeader("Authorization") String jwt) 
+	{
 
 		if (notesService.deletenote(id))
 			return ResponseEntity.ok().body(new Response("note deleted", 200, "done"));
@@ -49,7 +50,7 @@ public class NotesController {
 	}
 
 	@PutMapping("/update")
-	private ResponseEntity<Response> update(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response> update(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
 			throws Exception 
 	{
 		if (notesService.update(notesDTO, jwt))
@@ -61,9 +62,9 @@ public class NotesController {
 
 	
 	@GetMapping("/getnotes")
-	private ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader("Authorization") String jwt) {
-		
-		System.out.println(id);
+	public ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader("Authorization") String jwt)
+	{
+	
 		NotesInfo notes = notesService.getnote(id);
 
 		if (notes != null)
@@ -73,9 +74,8 @@ public class NotesController {
 	}
 	
 	@GetMapping("/getAllnotes")
-	private ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
+	public ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
 	{
-		System.out.println(notesService);
 		if (notesService.getAllnotes(jwt) != null) 
 		{
 			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
@@ -88,9 +88,8 @@ public class NotesController {
 	
 
 	@GetMapping("/getAllPinned")
-	private ResponseEntity<Response>getAllPinnedNotes(@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response>getAllPinnedNotes(@RequestHeader("Authorization") String jwt)
 	{
-		System.out.println(notesService);
 		if(notesService.getAllPinned(jwt)!=null)
 			return ResponseEntity.ok().body(new Response("All Pinned",200,notesService.getAllPinned(jwt)));
 		else
@@ -98,7 +97,7 @@ public class NotesController {
 	}
 	
 	@GetMapping("/getAllArchived")
-	private ResponseEntity<Response>getAllArchivednotes(@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response>getAllArchivednotes(@RequestHeader("Authorization") String jwt)
 	{
 		if(notesService.getAllArchived(jwt)!=null)
 			return ResponseEntity.ok().body(new Response("Archived notes",200,notesService.getAllArchived(jwt)));

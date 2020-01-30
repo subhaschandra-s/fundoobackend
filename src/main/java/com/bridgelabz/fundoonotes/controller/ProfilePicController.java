@@ -23,7 +23,7 @@ public class ProfilePicController
     private ProfileService profileService;
 	
 	@PostMapping("/uploadprofile")
-	private ResponseEntity<Response>UploadProfile(@RequestPart(value = "file")MultipartFile file,@RequestHeader("Authorization") String jwt) throws Exception
+	public ResponseEntity<Response>uploadprofile(@RequestPart(value = "file")MultipartFile file,@RequestHeader("Authorization") String jwt) throws Exception
 	{
 		profileService.uploadprofile(file,jwt);
 		return ResponseEntity.ok().body(new Response("Uploaded successfully",200,"done"));
@@ -31,14 +31,14 @@ public class ProfilePicController
 	}
 	
 	@PutMapping("/updateprofile")
-	private ResponseEntity<Response>Updateprofile(@RequestPart(value= "file")MultipartFile file,@RequestHeader("Authorization") String jwt) throws Exception
+	public ResponseEntity<Response>updateprofile(@RequestPart(value= "file")MultipartFile file,@RequestHeader("Authorization") String jwt) throws Exception
 	{
 		profileService.updateprofile(file,jwt);
 		return ResponseEntity.ok().body(new Response("Updated successfully",200,"Done"));
 	}
 	
 	@GetMapping("/retriveprofile")
-	private ResponseEntity<Response>RetriveProfile(@RequestHeader("Authorization") String jwt)
+	public ResponseEntity<Response>retriveProfile(@RequestHeader("Authorization") String jwt)
 	{
 		if(profileService.retriveprofile(jwt)!=null)
 		{

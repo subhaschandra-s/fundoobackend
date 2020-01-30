@@ -12,13 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class Logger 
 {
-	
 	  @Around("execution(* com.bridgelabz.fundoonotes.controller.*.*(*))") 
-	  public Object commonMethod(ProceedingJoinPoint JointPoint) throws Throwable 
+	  public Object commonMethod(ProceedingJoinPoint jointPoint) throws Throwable 
 	  {
-	  log.info("Before "+JointPoint.getSignature().getName()+" method of "+JointPoint.getSignature().getDeclaringType().getSimpleName());
-	  Object retu=  JointPoint.proceed();
-	  log.info("After "+JointPoint.getSignature().getName()+"  method of class"+JointPoint.getSignature().getDeclaringType().getSimpleName()); 
+	  log.info("Before "+jointPoint.getSignature().getName()+" method of "+jointPoint.getSignature().getDeclaringType().getSimpleName());
+	  Object retu=  jointPoint.proceed();
+	  log.info("After "+jointPoint.getSignature().getName()+"  method of class"+jointPoint.getSignature().getDeclaringType().getSimpleName()); 
 	  return retu;
 	  }
 
