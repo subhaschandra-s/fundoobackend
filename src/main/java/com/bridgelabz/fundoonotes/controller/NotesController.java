@@ -61,8 +61,8 @@ public class NotesController {
 	}
 
 	
-	@GetMapping("/getnotes")
-	public ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader("Authorization") String jwt)
+	@GetMapping("/getnote")
+	public ResponseEntity<Response> getnote(@RequestParam("noteid") int id,@RequestHeader(value = "Authorization") String jwt)
 	{
 	
 		NotesInfo notes = notesService.getnote(id);

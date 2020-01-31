@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
@@ -21,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Service
+@Slf4j
 public class NotesServiceImplementation implements NotesService {
 	
 	@Autowired
@@ -65,7 +65,7 @@ public class NotesServiceImplementation implements NotesService {
 			}
 		}
 		List<Label> labels = labelsdto.stream().map(s -> noterepository.findLabelByName(s))
-				.collect(Collectors.toList());
+     		.collect(Collectors.toList());
 
 		return labels;
 	}
@@ -109,7 +109,7 @@ public class NotesServiceImplementation implements NotesService {
 		if(redis.opsForValue().get(token)==null)
 		{
 			String idForRedis=jwt.extractemailId(token);
-			//log.info("idforRedis is "+idForRedis);
+			log.info("idforRedis is "+idForRedis);
 			redis.opsForValue().set(token, idForRedis, 3 * 60, TimeUnit.SECONDS);	
 		}
 		String userid=(String) redis.opsForValue().get(token);
@@ -129,10 +129,8 @@ public class NotesServiceImplementation implements NotesService {
 	public List<NotesInfo> getAllnotes(String jwt1)
 	{
 		
-		System.out.println("inside 2");
 		UserInfo user=noterepository.findOneByemailId(jwt.extractemailId(jwt1));
 		List<NotesInfo> notes=noterepository.getAllnotes(user.getId());
-		System.out.println(notes);
 		return notes;
 	}
 
