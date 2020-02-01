@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundoonotes.dto.NotesDTO;
 import com.bridgelabz.fundoonotes.model.NotesInfo;
 import com.bridgelabz.fundoonotes.response.Response;
+import com.bridgelabz.fundoonotes.service.ElasticSearchService;
 import com.bridgelabz.fundoonotes.service.NotesService;
 
 
@@ -25,6 +26,8 @@ public class NotesController {
 	@Autowired
 	private NotesService notesService;
 
+	@Autowired
+	private ElasticSearchService elasticservice;
 	
 	@PostMapping("/save")
 	public ResponseEntity<Response> newnote(@RequestBody NotesDTO notesDTO, @RequestHeader("Authorization") String jwt)
@@ -71,6 +74,16 @@ public class NotesController {
 			return ResponseEntity.ok().body(new Response("successfull", 200, notes));
 		else
 			return ResponseEntity.ok().body(new Response("problems occured", 400, "Failed"));
+	}
+	
+	@GetMapping("/searchByTitle")
+	public ResponseEntity<Response>searchelastic(@RequestParam("title") String title,@RequestHeader("Authorization") String token) throws Exception
+	{
+		if(elasticservice.searchByTitle(title)!=null)
+		
+			return ResponseEntity.ok().body(new Response("The title you looking is found",200,"done"));
+		else
+			return null;
 	}
 	
 	@GetMapping("/getAllnotes")
