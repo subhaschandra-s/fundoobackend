@@ -55,8 +55,7 @@ public class CollaboratorServiceImplementation implements CollaboratorService
 		if(jwtn.validatetoken(jwt) && user!=null)
 		{
 			NotesInfo note=repo.findByNoteid(id);
-			Collaborator cal=repo.getcollaborator(note.getId());
-			return cal;
+			return repo.getcollaborator(note.getId());
 		}	
 		return null;
 	}

@@ -72,8 +72,8 @@ public class LabelImplementation implements LabelService
 		UserInfo user=labelrepository.findOneByemailId(jwtin.extractemailId(jwt));
 		if(jwtin.validatetoken(jwt) && user!=null)
 		{
-			Label l=labelrepository.getlabel(lid);
-			return l;
+			return labelrepository.getlabel(lid);
+			
 		}
 		return null;
 		

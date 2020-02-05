@@ -98,7 +98,7 @@ public class UserController
 	
 	
 	@GetMapping("/verification")
-	public ResponseEntity<Response> userverification(@RequestParam String jwt,HttpServletRequest req)
+	public ResponseEntity<Response> userverification(@RequestParam String jwt)
 	{
 		UserInfo user= service.activateuser(jwt);
 		
@@ -119,7 +119,6 @@ public class UserController
 		else 
 		{
 			UserInfo user=service.getmail(forgotdto);
-        	user.setPassword("*****");
 			return ResponseEntity.status(HttpStatus.OK).body(new Response("Successfull", 200, user.getId()));
 		}
 		

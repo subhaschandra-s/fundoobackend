@@ -35,6 +35,7 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public boolean saveanote(NotesDTO notesDTO, String jwt1) throws Exception 
 	{
+		
 		UserInfo user = noterepository.findOneByemailId(jwt.extractemailId(jwt1));
 		if (jwt.validatetoken(jwt1) && user != null) 
 		{
@@ -64,8 +65,7 @@ public class NotesServiceImplementation implements NotesService {
 				noterepository.createLabel(labelsdto.get(i), user);
 			}
 		}
-		List<Label> labels = labelsdto.stream().map(s -> noterepository.findLabelByName(s))
-     		.collect(Collectors.toList());
+		List<Label> labels = labelsdto.stream().map(s -> noterepository.findLabelByName(s)).collect(Collectors.toList());
 
 		return labels;
 	}
@@ -80,7 +80,6 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public boolean update(NotesDTO notesDTO, String jwt2) throws Exception 
 	{
-		System.out.println(jwt2);
 		String userid=getRedisId(jwt2);
 		UserInfo user1=noterepository.findOneByemailId(userid);	
 		if(jwt.validatetoken(jwt2) && user1!=null )
@@ -112,17 +111,16 @@ public class NotesServiceImplementation implements NotesService {
 			log.info("idforRedis is "+idForRedis);
 			redis.opsForValue().set(token, idForRedis, 3 * 60, TimeUnit.SECONDS);	
 		}
-		String userid=(String) redis.opsForValue().get(token);
-		return userid;
-		
+		return (String) redis.opsForValue().get(token);
+			
 	}
 	
 
 	@Override
 	public NotesInfo getnote(int id) 
 	{
-		NotesInfo n=noterepository.getNotes(id);		
-		return n;
+		return noterepository.getNotes(id);		
+		
 	}
 
 	@Override

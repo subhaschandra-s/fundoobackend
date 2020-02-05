@@ -27,9 +27,9 @@ public class CollaboratorController
 	{
 
 		if(collaboratorService.addCollaborator(collaboratorDTO, jwt) !=null)
-			return ResponseEntity.ok().body(new Response("Successfull",200,collaboratorDTO));
+			return ResponseEntity.ok().body(new Response("Successfulll",200,collaboratorDTO));
 		else
-			return ResponseEntity.ok().body(new Response("problem occurs",400,"Failed"));
+			return ResponseEntity.ok().body(new Response("problem occurssss",400,"Failedd"));
 		
 	}
 
