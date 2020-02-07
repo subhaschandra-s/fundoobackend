@@ -39,7 +39,7 @@ public interface NoteRepository extends JpaRepository<NotesInfo,Long>
 	Integer giveMaxId();
 	
 	@Modifying
-	@Query(value="delete from note where id=?1", nativeQuery = true)
+	@Query(value="update note set is_trashed=true where id=?1", nativeQuery = true)
 	int delete(int id);
 
 	@Query(value="select * from note where userinfo_id=:id",nativeQuery = true)
@@ -53,5 +53,8 @@ public interface NoteRepository extends JpaRepository<NotesInfo,Long>
 
 	@Query(value="select * from note where is_archived=true and userinfo_id=:id", nativeQuery = true)
 	List<NotesInfo> getAllArchived(long id);
+
+	@Query(value="select * from note where is_trashed=true and userinfo_id=:id",nativeQuery = true)
+	List<NotesInfo> getAllTrashed(long id);
 
 }

@@ -76,7 +76,7 @@ public class NotesController {
 			return ResponseEntity.ok().body(new Response("problems occured", 400, "Failed"));
 	}
 	
-	@GetMapping("/searchByTitle")
+	@GetMapping("/searchbytitle")
 	public ResponseEntity<Response>searchelastic(@RequestParam("title") String title,@RequestHeader("Authorization") String token) throws Exception
 	{
 		if(elasticservice.searchByTitle(title)!=null)
@@ -86,7 +86,7 @@ public class NotesController {
 			return null;
 	}
 	
-	@GetMapping("/getAllnotes")
+	@GetMapping("/getallnotes")
 	public ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
 	{
 		if (notesService.getAllnotes(jwt) != null) 
@@ -100,7 +100,7 @@ public class NotesController {
 	}
 	
 
-	@GetMapping("/getAllPinned")
+	@GetMapping("/getallpinned")
 	public ResponseEntity<Response>getAllPinnedNotes(@RequestHeader("Authorization") String jwt)
 	{
 		if(notesService.getAllPinned(jwt)!=null)
@@ -109,7 +109,7 @@ public class NotesController {
 			return ResponseEntity.ok().body(new Response("problems in notes",400,"Failed"));
 	}
 	
-	@GetMapping("/getAllArchived")
+	@GetMapping("/getallarchived")
 	public ResponseEntity<Response>getAllArchivednotes(@RequestHeader("Authorization") String jwt)
 	{
 		if(notesService.getAllArchived(jwt)!=null)
@@ -118,6 +118,15 @@ public class NotesController {
 			return ResponseEntity.ok().body(new Response("Problems in notes",400,"Failed"));
 	}
 	
-	
-	
+	@GetMapping("/getalltrashed")
+	public ResponseEntity<Response>getAllTrashed(@RequestHeader("Authorization") String jwt)
+	{
+		if(notesService.getAllTrashed(jwt)!=null)
+			return ResponseEntity.ok().body(new Response("Trashed notes",200,notesService.getAllTrashed(jwt)));
+		else 
+			return ResponseEntity.ok().body(new Response("problems occuredd",400,"Fails"));
+		
+		
+	}
+	 
 }

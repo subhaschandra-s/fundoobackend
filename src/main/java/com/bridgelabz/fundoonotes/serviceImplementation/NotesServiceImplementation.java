@@ -73,8 +73,8 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public boolean deletenote(int id) 
 	{
-		noterepository.delete(id); 
-         return true;
+		noterepository.delete(id);
+		return true;
 	}
 
 	@Override
@@ -94,8 +94,7 @@ public class NotesServiceImplementation implements NotesService {
 			note.setUserinfo(user1);
 		    note.setPinned(true);
 		    note.setArchived(true);
-		   
-			noterepository.save(note);
+		    noterepository.save(note);
 			return true;
 		}
 		else
@@ -145,6 +144,14 @@ public class NotesServiceImplementation implements NotesService {
 	{
 	UserInfo user=noterepository.findOneByemailId(jwt.extractemailId(jwt1));
 	List<NotesInfo> no=noterepository.getAllArchived(user.getId());
+		return no;
+	}
+
+	@Override
+	public Object getAllTrashed(String jwt1)
+	{
+		UserInfo user=noterepository.findOneByemailId(jwt.extractemailId(jwt1));
+		List<NotesInfo> no=noterepository.getAllTrashed(user.getId());
 		return no;
 	}
 

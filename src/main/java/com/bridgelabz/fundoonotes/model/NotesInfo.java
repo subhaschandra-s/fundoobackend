@@ -35,7 +35,7 @@ public class NotesInfo
 	private boolean isArchived;
 
 	@Column(columnDefinition = "boolean default false")
-	private boolean isDeleted;
+	private boolean isTrashed;
 	
 	private String reminderstatus;
 
@@ -132,13 +132,13 @@ public class NotesInfo
 	}
 
 
-	public boolean isDeleted() {
-		return isDeleted;
+	public boolean isTrashed() {
+		return isTrashed;
 	}
 
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setTrashed(boolean isTrashed) {
+		this.isTrashed = isTrashed;
 	}
 
 
@@ -231,7 +231,7 @@ public class NotesInfo
 	@Override
 	public String toString() {
 		return "NotesInfo [id=" + id + ", title=" + title + ", takeanote=" + takeanote + ", isPinned=" + isPinned
-				+ ", isArchived=" + isArchived + ", isDeleted=" + isDeleted + ", reminderstatus=" + reminderstatus
+				+ ", isArchived=" + isArchived + ", isTrashed=" + isTrashed + ", reminderstatus=" + reminderstatus
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", label=" + label + ", userinfo="
 				+ userinfo + ", color=" + color + "]";
 	}

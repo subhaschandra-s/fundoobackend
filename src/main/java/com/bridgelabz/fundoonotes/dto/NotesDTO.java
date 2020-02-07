@@ -16,6 +16,7 @@ public class NotesDTO
 	private String color;
 	private boolean isPinned;
 	private boolean isArchived;
+	private boolean isTrashed;
 	
 	
 
@@ -26,7 +27,7 @@ public class NotesDTO
 	{
 		
 	}
-	public NotesDTO(int id, String title, String takeanote, String reminderstatus,boolean isPinned,boolean isArchived, String color, List<String> label) {
+	public NotesDTO(int id, String title, String takeanote, String reminderstatus,boolean isPinned,boolean isArchived, String color, boolean isTrashed,List<String> label) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -36,7 +37,9 @@ public class NotesDTO
 		this.label = label;
 		this.isPinned=isPinned;
 		this.isArchived=isArchived;
+		this.isTrashed=isTrashed;
 	}
+	
 	public int getId() {
 		return id;
 	}
@@ -97,6 +100,13 @@ public class NotesDTO
 	public void setArchived(boolean isArchived) {
 		this.isArchived = isArchived;
 	}
+	public boolean isTrashed() {
+		return isTrashed;
+	}
+	public void setTrashed(boolean isTrashed) {
+		this.isTrashed = isTrashed;
+	}
+	
 	
 	
 

@@ -23,6 +23,8 @@ public interface NotesService
 	public Object getAllPinned(String jwt1);
 
 	public Object getAllArchived(String jwt);
+
+	public Object getAllTrashed(String jwt);
 	
 	
 }
