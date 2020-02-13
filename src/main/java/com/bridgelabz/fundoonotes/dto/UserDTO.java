@@ -3,6 +3,8 @@ package com.bridgelabz.fundoonotes.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.yaml.snakeyaml.emitter.Emitable;
+
 import lombok.Data;
 
 @Data

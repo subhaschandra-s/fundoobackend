@@ -42,8 +42,8 @@ public interface NoteRepository extends JpaRepository<NotesInfo,Long>
 	@Query(value="update note set is_trashed=true where id=?1", nativeQuery = true)
 	int delete(int id);
 
-	@Query(value="select * from note where userinfo_id=:id",nativeQuery = true)
-	List<NotesInfo> getAllnotes(long id);
+	@Query(value="select * from note where userinfo_id=:id limit :id1,10", nativeQuery = true)
+	List<NotesInfo> getAllnotes(long id,  long id1);
 
 	@Query("from NotesInfo where id=?1")
 	NotesInfo getnotesbyid(long id);

@@ -20,11 +20,6 @@ import com.sun.istack.NotNull;
 public class UserInfo 
 {
 	
-   public UserInfo() 
-   {
-		
-	}
-
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -131,6 +126,7 @@ public class UserInfo
 		this.createdate = new Date();
 				}
 
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", emailId=" + emailId

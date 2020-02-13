@@ -18,7 +18,7 @@ public interface NotesService
 
 	public NotesInfo getnote(int id);
 
-	public List<NotesInfo> getAllnotes(String jwt);
+	public List<NotesInfo> getAllnotes(String jwt,long id);
 
 	public Object getAllPinned(String jwt1);
 

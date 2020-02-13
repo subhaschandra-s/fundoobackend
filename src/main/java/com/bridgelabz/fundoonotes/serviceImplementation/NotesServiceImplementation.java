@@ -123,11 +123,11 @@ public class NotesServiceImplementation implements NotesService {
 	}
 
 	@Override
-	public List<NotesInfo> getAllnotes(String jwt1)
+	public List<NotesInfo> getAllnotes(String jwt1,long id)
 	{
 		
 		UserInfo user=noterepository.findOneByemailId(jwt.extractemailId(jwt1));
-		List<NotesInfo> notes=noterepository.getAllnotes(user.getId());
+		List<NotesInfo> notes=noterepository.getAllnotes(user.getId(),(id*10-10));
 		return notes;
 	}
 

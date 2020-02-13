@@ -87,11 +87,11 @@ public class NotesController {
 	}
 	
 	@GetMapping("/getallnotes")
-	public ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt) 
+	public ResponseEntity<Response> getAllnotes(@RequestHeader("Authorization") String jwt,@RequestParam("id") long id) 
 	{
-		if (notesService.getAllnotes(jwt) != null) 
+		if (notesService.getAllnotes(jwt, id) != null) 
 		{
-			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt)));
+			return ResponseEntity.ok().body(new Response("Available", 200, notesService.getAllnotes(jwt, id)));
 		} 
 		else 
 		{
